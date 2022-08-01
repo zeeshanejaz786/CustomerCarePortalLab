@@ -4,6 +4,7 @@ using CustomerCarePortalLab.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CustomerCarePortalLab.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220801183531_new")]
+    partial class @new
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,13 +42,13 @@ namespace CustomerCarePortalLab.Data.Migrations
                     b.Property<bool>("OrganizationHead")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("TeamID")
+                    b.Property<int>("TeamID")
                         .HasColumnType("int");
 
                     b.Property<bool>("TeamManager")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("TicketID")
+                    b.Property<int>("TicketID")
                         .HasColumnType("int");
 
                     b.HasKey("AgentID");
@@ -132,6 +134,7 @@ namespace CustomerCarePortalLab.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Comments")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -358,7 +361,9 @@ namespace CustomerCarePortalLab.Data.Migrations
                 {
                     b.HasOne("CustomerCarePortalLab.Models.Team", null)
                         .WithMany("Agents")
-                        .HasForeignKey("TeamID");
+                        .HasForeignKey("TeamID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CustomerCarePortalLab.Models.Department", b =>

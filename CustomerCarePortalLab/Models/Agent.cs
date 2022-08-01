@@ -26,11 +26,11 @@ namespace CustomerCarePortalLab.Models
         public bool OrganizationHead { get; set; }
 
         [Display( Name = "Team's ID" )]
-        public int TeamID { get; set; }
+        public int? TeamID { get; set; }
 
         [Display( Name = "Ticket ID" )]
-        public int TicketID { get; set; } = 0;
-        public List<Ticket> Tickets { get; }
+        public int? TicketID { get; set; } = 0;
+        public List<Ticket>? Tickets { get; }
 
         }
     }

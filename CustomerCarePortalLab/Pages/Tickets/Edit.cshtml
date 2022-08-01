@@ -1,0 +1,55 @@
+﻿@page
+@model CustomerCarePortalLab.Pages.Tickets.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Ticket</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Ticket.TicketID" />
+            <div class="form-group">
+                <label asp-for="Ticket.Email" class="control-label"></label>
+                <input asp-for="Ticket.Email" class="form-control" />
+                <span asp-validation-for="Ticket.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ticket.Comments" class="control-label"></label>
+                <input asp-for="Ticket.Comments" class="form-control" />
+                <span asp-validation-for="Ticket.Comments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ticket.TicketType" class="control-label"></label>
+                <select asp-for="Ticket.TicketType" class="form-control" asp-items="@Html.GetEnumSelectList<Models.Types>()"></select>
+                <span asp-validation-for="Ticket.TicketType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ticket.TicketStatus" class="control-label"></label>
+                <select asp-for="Ticket.TicketStatus" class="form-control" asp-items="@Html.GetEnumSelectList<Models.Status>()"></select>
+                <span asp-validation-for="Ticket.TicketStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Ticket.Allocated" /> @Html.DisplayNameFor(model => model.Ticket.Allocated)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

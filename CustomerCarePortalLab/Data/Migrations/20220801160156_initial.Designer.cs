@@ -4,6 +4,7 @@ using CustomerCarePortalLab.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CustomerCarePortalLab.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220801160156_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -40,13 +42,13 @@ namespace CustomerCarePortalLab.Data.Migrations
                     b.Property<bool>("OrganizationHead")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("TeamID")
+                    b.Property<int>("TeamID")
                         .HasColumnType("int");
 
                     b.Property<bool>("TeamManager")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("TicketID")
+                    b.Property<int>("TicketID")
                         .HasColumnType("int");
 
                     b.HasKey("AgentID");
@@ -68,31 +70,9 @@ namespace CustomerCarePortalLab.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrganizationID")
-                        .HasColumnType("int");
-
                     b.HasKey("DepartmentID");
 
-                    b.HasIndex("OrganizationID");
-
                     b.ToTable("Department");
-                });
-
-            modelBuilder.Entity("CustomerCarePortalLab.Models.Organization", b =>
-                {
-                    b.Property<int>("OrganizationID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrganizationID"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("OrganizationID");
-
-                    b.ToTable("Organization");
                 });
 
             modelBuilder.Entity("CustomerCarePortalLab.Models.Team", b =>
@@ -132,6 +112,7 @@ namespace CustomerCarePortalLab.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Comments")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -358,14 +339,9 @@ namespace CustomerCarePortalLab.Data.Migrations
                 {
                     b.HasOne("CustomerCarePortalLab.Models.Team", null)
                         .WithMany("Agents")
-                        .HasForeignKey("TeamID");
-                });
-
-            modelBuilder.Entity("CustomerCarePortalLab.Models.Department", b =>
-                {
-                    b.HasOne("CustomerCarePortalLab.Models.Organization", null)
-                        .WithMany("Departments")
-                        .HasForeignKey("OrganizationID");
+                        .HasForeignKey("TeamID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CustomerCarePortalLab.Models.Team", b =>
@@ -443,11 +419,6 @@ namespace CustomerCarePortalLab.Data.Migrations
             modelBuilder.Entity("CustomerCarePortalLab.Models.Department", b =>
                 {
                     b.Navigation("Teams");
-                });
-
-            modelBuilder.Entity("CustomerCarePortalLab.Models.Organization", b =>
-                {
-                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("CustomerCarePortalLab.Models.Team", b =>

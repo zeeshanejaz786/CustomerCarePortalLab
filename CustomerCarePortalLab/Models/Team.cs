@@ -41,6 +41,6 @@ namespace CustomerCarePortalLab.Models
 
         public int DepartmentID { get; set; }
 
-        public List<Agent> Agents { get; set; }
+        public List<Agent>? Agents { get; set; }
         }
     }

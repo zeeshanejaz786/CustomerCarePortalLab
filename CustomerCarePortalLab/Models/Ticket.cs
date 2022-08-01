@@ -25,7 +25,7 @@ namespace CustomerCarePortalLab.Models
         public int TicketID { get; set; }
         public string Email { get; set; }
         [StringLength( 100 )]
-        public string Comments { get; set; }
+        public string? Comments { get; set; }
         public Types TicketType { get; set; } = Types.Information;
         public Status TicketStatus { get; set; } = Status.ToDo;
         public bool Allocated { get; set; } = false;// check

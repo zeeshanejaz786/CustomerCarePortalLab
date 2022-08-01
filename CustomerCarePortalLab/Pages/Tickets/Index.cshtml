@@ -1,0 +1,60 @@
+﻿@page
+@model CustomerCarePortalLab.Pages.Tickets.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket[0].Comments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket[0].TicketType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket[0].TicketStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket[0].Allocated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Ticket) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Allocated)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.TicketID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.TicketID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.TicketID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

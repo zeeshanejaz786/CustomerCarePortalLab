@@ -13,5 +13,6 @@ namespace CustomerCarePortalLab.Data
         public DbSet<Team> Team { get; set; }
         public DbSet<Department> Department { get; set; }
         public DbSet<Ticket> Ticket { get; set; }
+        public DbSet<Organization>? Organization { get; set; }
         }
     }
